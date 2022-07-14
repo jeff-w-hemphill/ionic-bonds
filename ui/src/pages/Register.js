@@ -70,7 +70,7 @@ const Register = () => {
     }
 
   return (
-    <>
+    <section className='auth'>
     {success ? (
       <section>
         <h1> Success!</h1>
@@ -141,7 +141,7 @@ const Register = () => {
         </p>
       </section>
     )}
-  </>
+  </section>
   )
 }
 

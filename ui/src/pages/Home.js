@@ -1,6 +1,8 @@
 import { useNavigate, Link } from "react-router-dom";
 import { useContext } from "react";
 import AuthContext from "../context/AuthProvider";
+import Sidebar from "../components/Sidebar/Sidebar.js";
+import ChatArea from "../components/ChatArea/ChatArea.js";
 
 const Home = () => {
     const { auth, setAuth } = useContext(AuthContext);
@@ -14,15 +16,10 @@ const Home = () => {
     }
 
     return (
-        <section>
-            <h1>Home</h1>
-            <br />
-            <p>You are logged in {auth.name}</p>
-            <br />
-            <div className="flexGrow">
-                <button onClick={logout}>Sign Out</button>
-            </div>
-        </section>
+        <div className="home">
+            <Sidebar />
+            <ChatArea />
+        </div>
     )
 }
 
