@@ -8,7 +8,8 @@ const chatroomSchema = new Schema({
     },
     messages: [{
         username: String,
-        content: String
+        content: String,
+        timestamp: Date
     }]
 });
 

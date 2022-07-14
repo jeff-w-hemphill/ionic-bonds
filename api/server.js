@@ -42,7 +42,7 @@ app.use(express.static(path.join(__dirname, '/public')));
 // routes
 app.use('/', require('./routes/root'));
 app.use('/register', require('./routes/register'));
-app.use('/auth', require('./routes/auth'));
+app.use('/login', require('./routes/login'));
 app.use('/logout', require('./routes/logout'));
 app.use('/chatrooms', require('./routes/api/chatrooms'));
 

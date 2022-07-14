@@ -27,17 +27,14 @@ services:
     #   MONGO_INITDB_ROOT_USERNAME: root
     #   MONGO_INITDB_ROOT_PASSWORD: rootpassword
     ports:
-      - 27017:27017
+      - 27018:27017
     volumes:
       - mongodb:/data/db
 
   ui:
     build: ./ui
     image: ui
-    command: npm run start
-    environment:
-      PORT: 3000
-      CHAT_API_ENDPOINT: http://localhost:5000
+    command: npm start
     ports:
       - "3000:3000"
     volumes:
