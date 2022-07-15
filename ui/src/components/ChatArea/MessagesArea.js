@@ -1,14 +1,18 @@
 import React from 'react'
-import MessageBlock from './MessageBlock'
+import MessageBlock from './MessageBlock';
+import ChatContext from '../../context/ChatProvider';
+import { useContext } from 'react';
 
 const MessagesArea = () => {
-  return (
-    <div className='messages-area'>
-        <MessageBlock />
-        <MessageBlock />
-        <MessageBlock />
-    </div>
-  )
+
+    const { messages, setMessages } = useContext(ChatContext);
+    return (
+        <div className='messages-area'>
+        {messages.map(message => (
+            <MessageBlock user={message.user} date={message.date} content={message.content} />
+        ))}
+        </div>
+    )
 }
 
 export default MessagesArea

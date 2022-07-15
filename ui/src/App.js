@@ -5,26 +5,27 @@ import Layout from './components/Layout';
 import Missing from './pages/Missing';
 import RequireAuth from './components/RequireAuth';
 import { Routes, Route, Link } from 'react-router-dom';
-
-
+import { ChatProvider } from './context/ChatProvider';
 
 function App() {
   return (
-   <Routes>
-     <Route path="/" element={<Layout />}>
-       {/* public routes */}
+  <ChatProvider>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        {/* public routes */}
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
 
-       {/* protected routes */}
+        {/* protected routes */}
       <Route element={<RequireAuth />}>
         <Route path="/" element={<Home />} />
       </Route>
-  
        {/* catch all */}
        <Route path="*" element={<Missing />} />
      </Route>
    </Routes>
+  </ChatProvider>
+
   );
 }
 
