@@ -42,6 +42,9 @@ body {
     align-items: center;
     width: 75%;
 }
+.join-room img {
+    width: 20%
+}
 
 .rotate-image {
     animation-name: spin;
@@ -190,7 +193,6 @@ button:disabled {
     justify-self: center;
     width: 100%;
     margin-left: 25vw;
-    
 }
 
 .header-card {

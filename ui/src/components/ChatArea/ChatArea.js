@@ -53,7 +53,7 @@ const ChatArea = () => {
       </ScrollToBottom>
       
       <div className='send-message'>
-        <textarea rows="2" value={newMessage} onChange={(e) => setNewMessage(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleSend()} />
+        <textarea rows="1" placeholder="Message" value={newMessage} onChange={(e) => setNewMessage(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleSend() && e.preventDefault()} />
         <button className="btn-hover color-3" onClick={handleSend}>Send</button>
       </div>
     </div>
