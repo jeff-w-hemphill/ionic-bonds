@@ -1,12 +1,19 @@
-import React from 'react'
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const ChatroomCard = ({ name, description, lastUpdated }) => {
+const ChatroomCard = ({ chatroom, setChatroom }) => {
+
+  const navigate = useNavigate();
+
+  const handleSelection = () => {
+    setChatroom(chatroom)
+    navigate(`/chat/${chatroom.name}`);
+  }
+  
   return (
-    <div className='chatroom-card'>
-      <h1>{name}</h1>
-      <h2>{description}</h2>
-      <p>Last message: {lastUpdated}</p>
-    
+    <div className='chatroom-card' onClick={handleSelection}>
+      <h1>{chatroom.name}</h1>
+      <p>Last message: {chatroom.messages.length > 0 ? chatroom.messages[chatroom.messages.length - 1].date : 'No messages'}</p>
     </div>
   )
 }

@@ -10,7 +10,7 @@ const Login = () => {
 
     const navigate = useNavigate();
     const location = useLocation();
-    const from = location.state?.from?.pathname || "/";
+    //const from = location.state?.from?.pathname || "/chat";
 
     const userRef = useRef();
     const errRef = useRef();
@@ -36,13 +36,11 @@ const Login = () => {
                     headers: { 'Content-Type': 'application/json'},
                     withCredentials: true
                 }
-            );
-            console.log(response?.data)
-            
+            );           
 
             setAuth({ username, name: response.data.name })
             setUsername('');
-            navigate(from, { replace: true });
+            navigate('/chat', { replace: true });
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No server response');

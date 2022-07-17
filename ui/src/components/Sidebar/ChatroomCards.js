@@ -5,12 +5,12 @@ import ChatContext from '../../context/ChatProvider';
 
 const ChatroomCards = () => {
 
-  const { chatrooms, setChatrooms } = useContext(ChatContext);
+  const { chatrooms, setChatroom } = useContext(ChatContext);
 
   return (
     <div className='chatroom-cards'>
       {chatrooms.map(chatroom => (
-        <ChatroomCard name={chatroom.name} description={chatroom.description} lastUpdated={chatroom.messages[chatroom.messages.length - 1].date} /> 
+        <ChatroomCard key={chatroom.name} chatroom={chatroom} setChatroom={setChatroom} /> 
       ))}
     </div>
   )

@@ -1,4 +1,4 @@
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Routes, Route, Outlet } from "react-router-dom";
 import { useContext } from "react";
 import AuthContext from "../context/AuthProvider";
 import Sidebar from "../components/Sidebar/Sidebar.js";
@@ -18,7 +18,7 @@ const Home = () => {
     return (
         <div className="home">
             <Sidebar />
-            <ChatArea />
+            <Outlet />
         </div>
     )
 }

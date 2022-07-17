@@ -1,50 +1,32 @@
 import { createContext, useState, useEffect } from "react";
+import axios from '../api/axios';
 
 const ChatContext = createContext({});
 
 export const ChatProvider = ({ children }) => {
 
-    const data = {
-        chatrooms: [
-            {
-                name: 'chat1',
-                description: 'fun place to talk',
-                messages: [{
-                    user: 'user1',
-                    date: Date.now(),
-                    content: 'Hello friends'
-                },
-                {
-                    user: 'user1',
-                    date: '2022-01-01',
-                    content: 'Hello L'
-                }]
-            },
-            {
-                name: 'chat2',
-                description: 'Another fun place',
-                messages: [{
-                    user: 'user3',
-                    date: Date.now(),
-                    content: 'Hello rhcp'
-                },
-                {
-                    user: 'user4',
-                    date: Date.now(),
-                    content: 'Hello dude'
-                }]
-            }
-        ],
-    };
-
-    const [chatrooms, setChatrooms] = useState(data.chatrooms);
+    const getAndSetChatrooms = async (url) => {
+        try {
+            const response = await axios.get(url);
+            console.log(response.data)
+            setChatrooms(response.data)
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    
+    const [chatrooms, setChatrooms] = useState([]);
     const [chatroom, setChatroom] = useState({});
-    const [messages, setMessages] = useState(data.chatrooms[0].messages);
+    const [creatingChatroom, setCreatingChatroom] = useState(false);
+
+    useEffect(() => {
+        getAndSetChatrooms('http://localhost:3500/chatrooms');
+    }, [creatingChatroom])
 
 
     return (
         <ChatContext.Provider value={{
-            chatrooms, setChatrooms, chatroom, setChatroom, messages, setMessages
+            chatrooms, setChatrooms, chatroom, setChatroom, creatingChatroom, setCreatingChatroom
         }}>
             {children}
         </ChatContext.Provider>

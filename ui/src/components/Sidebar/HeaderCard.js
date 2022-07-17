@@ -2,6 +2,7 @@ import React from 'react'
 import AuthContext from "../../context/AuthProvider";
 import { useNavigate, Link } from "react-router-dom";
 import { useContext } from "react";
+import logo from '../../ionic_logo.png';
 
 const HeaderCard = () => {
   const { auth, setAuth } = useContext(AuthContext);
@@ -15,7 +16,10 @@ const HeaderCard = () => {
   }
   return (
     <div className='header-card'>
-      <h1>Ionic Bonds</h1>
+      <div className="logo">
+        <img src={logo} />
+        <h1>Ionic Bonds</h1>
+      </div>
         <p>Chatting as: {auth.username}</p>
         <a onClick={logout}>logout</a>
     </div>

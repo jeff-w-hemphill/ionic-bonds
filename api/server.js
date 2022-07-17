@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
+const http = require('http');
 const path = require('path');
 const cors = require('cors');
 const corsOptions = require('./config/corsOptions');
@@ -11,6 +12,40 @@ const credentials = require('./middleware/credentials');
 const mongoose = require('mongoose');
 const connectDB = require('./config/dbConn');
 const PORT = process.env.PORT || 3500;
+
+const { Server } = require('socket.io');
+const server = http.createServer(app);
+const io = new Server(server, {
+    cors: {
+        origin: "http://localhost:3000",
+        methods: ["GET", "POST"]
+    }
+});
+
+// socket.io
+io.on('connection', (socket) => {
+    console.log('a user connected');
+    
+    socket.on('join_room', (data) => {
+        console.log(`<${data.username}> joined <${data.room}>`);
+        socket.join(data.room);
+    });
+
+    socket.on('send_message', (data) => {
+        socket.to(data.room).emit('receive_message', data);
+        console.log(`${data.messageObj.user} sent message`)
+    });
+
+    socket.on('disconnect', () => {
+        console.log('user disconnected');
+    });
+});
+
+
+
+
+
+
 
 // Connect to MongoDB
 connectDB();
@@ -62,7 +97,7 @@ app.use(errorHandler);
 // Only listen if mongoose connects via the open event
 mongoose.connection.once('open', () => {
     console.log('Connected to MongoDB');
-    app.listen(PORT, () => console.log(`Server running at port ${PORT}`));
+    server.listen(PORT, () => console.log(`Server running at port: ${PORT}`));
 })
 
 

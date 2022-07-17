@@ -1,19 +1,16 @@
-const Employee = require('../model/Chatroom');
+const Chatroom = require('../model/Chatroom');
 
-const getAllChatrooms = async (req,res) => {
-    const employees = await Employee.find();
-    if (!employees) return res.status(204).json({ 'message': 'No employees found.' });
-    res.json(employees);
-}
-
-const createNewChatroom = async (req,res) => {
-    if (!req?.body.firstname || !req?.body.lastname) {
-        return res.status(400).json({ 'message': 'First and last names are required' });
+const createNewChatroom = async (req, res) => {
+    if (!req?.body.name) {
+        return res.status(400).json({ 'message': 'Name is required' });
     }
+
+    const duplicate = await Chatroom.findOne({ name: req.body.name }).exec();
+    if (duplicate) return res.sendStatus(409); //Conflict
+
     try {
-        const result = await Employee.create({
-            firstname: req.body.firstname,
-            lastname: req.body.lastname
+        const result = await Chatroom.create({
+            name: req.body.name,
         });
 
         res.status(201).json(result);
@@ -21,6 +18,23 @@ const createNewChatroom = async (req,res) => {
         console.error(err);
     }
 } 
+
+const getAllChatrooms = async (req, res) => {
+    const chatrooms = await Chatroom.find();
+    if (!chatrooms) return res.status(204).json({ 'message': 'No chatrooms found.' });
+    res.json(chatrooms);
+}
+
+const getChatroom = async (req, res) => {
+    if (!req?.params?.name) return res.status(400).json({ 'message': 'chatroom name required.'});
+    const chatroom = await Chatroom.findOne({ name: req.params.name }).exec();
+    if (!chatroom) {
+        return res.status(204).json({ 'message': `Chatroom ${req.params.id} not found `});
+    }
+    res.json(chatroom);
+}
+
+
 
 const updateChatroom = async (req, res) => {
     if (!req?.body?.id) {
@@ -48,14 +62,7 @@ const deleteChatroom = async (req,res) => {
     res.json(result);
 }
 
-const getChatroom = async (req, res) => {
-    if (!req?.params?.id) return res.status(400).json({ 'message': 'Employee ID required.'});
-    const employee = await Employee.findOne({ _id: req.params.name }).exec();
-    if (!employee) {
-        return res.status(204).json({ 'message': `Employee ID ${req.params.id} not found `});
-    }
-    res.json(employee);
-}
+
 
 module.exports = {
     getAllChatrooms,
