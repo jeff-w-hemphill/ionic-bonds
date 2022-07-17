@@ -13,7 +13,7 @@ const ChatroomCard = ({ chatroom, setChatroom }) => {
   return (
     <div className='chatroom-card' onClick={handleSelection}>
       <h1>{chatroom.name}</h1>
-      <p>Last message: {chatroom.messages.length > 0 ? chatroom.messages[chatroom.messages.length - 1].date : 'No messages'}</p>
+      <p>Last message: {chatroom.messages.length > 0 ? chatroom.messages[chatroom.messages.length - 1].timestamp : 'No messages'}</p>
     </div>
   )
 }

@@ -44,7 +44,7 @@ const ChatArea = () => {
       console.log('received message')
       return () => socket.off('receive_message', console.log('off'))
     })
-  }, [socket])
+  }, [])
     
   return (
     <div className='chat-area'>

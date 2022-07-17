@@ -1,7 +1,8 @@
 const Chatroom = require('../model/Chatroom');
 
 const createNewChatroom = async (req, res) => {
-    if (!req?.body.name) {
+    if (!req?.body) {
+        console.log(req.body)
         return res.status(400).json({ 'message': 'Name is required' });
     }
 
@@ -9,9 +10,7 @@ const createNewChatroom = async (req, res) => {
     if (duplicate) return res.sendStatus(409); //Conflict
 
     try {
-        const result = await Chatroom.create({
-            name: req.body.name,
-        });
+        const result = await Chatroom.create(req.body);
 
         res.status(201).json(result);
     } catch (err) {

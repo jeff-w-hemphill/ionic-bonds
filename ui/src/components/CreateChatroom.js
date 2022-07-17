@@ -3,6 +3,7 @@ import { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from '../api/axios';
 import { useContext } from 'react';
+import AuthContext from '../context/AuthProvider';
 import ChatContext from '../context/ChatProvider';
 
 const CHATROOM_URL = '/chatrooms'
@@ -12,6 +13,7 @@ const CreateChatroom = () => {
     const userRef = useRef();
     const errRef = useRef();
     const { setCreatingChatroom, setChatroom } = useContext(ChatContext);
+    const { auth } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const [name, setName] = useState('');
@@ -27,9 +29,20 @@ const CreateChatroom = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const newRoom = {
+            name: name,
+            messages: [
+                {
+                    user: auth.username,
+                    timestamp: Date(),
+                    content: `Room created by ${auth.username}`
+                }
+            ]
+        }
         try {
             const response = await axios.post(CHATROOM_URL,
-                JSON.stringify({ name }),
+                JSON.stringify( newRoom ),
                 {
                     headers: { 'Content-Type': 'application/json'},
                     withCredentials: true
