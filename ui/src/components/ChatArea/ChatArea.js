@@ -19,20 +19,22 @@ const ChatArea = () => {
     return () => socket.off('receive_message', console.log('sock off'))
   }, []);
   
-  // // // temp..
+  // change sockets when joining new chatroom
   useEffect(() => {
-    setMessages([]);
+    setMessages(chatroom.messages);
     socket.emit('join_room', { username: auth.username, room: chatroom.name });
+    return () => socket.emit('leave_room', { username: auth.username, room: chatroom.name });
+
   }, [chatroom])
   // // //
 
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
 
-  const handleSend = async () => {
+  const handleSend = () => {
     const messageObj = { user: auth.username, content: newMessage, timestamp: Date() }
     socket.emit('send_message', { messageObj, room: chatroom.name });
-    setMessages(messages => messages.concat(messageObj))
+    setMessages(messages => messages.concat(messageObj));
     setNewMessage('');
   }
 

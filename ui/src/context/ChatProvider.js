@@ -21,7 +21,7 @@ export const ChatProvider = ({ children }) => {
 
     useEffect(() => {
         getAndSetChatrooms('http://localhost:3500/chatrooms');
-    }, [creatingChatroom])
+    }, [creatingChatroom, chatroom]);
 
 
     return (

@@ -10,14 +10,17 @@ html {
     font-family: 'Nunito', sans-serif;
     font-size: 22px;
     color: #fff;
+    color: black
 }
-
 
 
 body {
     min-height: 100vh;
-    background-color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
 }
+.rotate-image {
+    animation: rotation 2s linear infinite;
+  }
 
 .App {
   display: flex;
@@ -31,6 +34,30 @@ body {
 .auth {
     align-self: center;
 }
+
+.join-room {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 75%;
+}
+
+.rotate-image {
+    animation-name: spin;
+    animation-duration: 3000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear; 
+}
+@keyframes spin {
+    from {
+        transform:rotate(360deg);
+    }
+    to {
+        transform:rotate(0deg);
+    }
+}
+
 section {
     width: 100%;
     max-width: 420px;
@@ -141,6 +168,10 @@ button:disabled {
     font-size: .8em;
     margin: 15px;
 }
+.sidebar h2 {
+    align-self: flex-start;
+    margin-left: 5%;
+}
 
 .chat-area {
     display: flex;
@@ -181,7 +212,7 @@ button:disabled {
     height: 44px;
 }
 .header-card h1 {
-    width: 70%;
+    font-size: 2em;
 }
 .header-card p {
     margin-left: 15px;

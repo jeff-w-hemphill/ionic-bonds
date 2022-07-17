@@ -8,6 +8,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { ChatProvider } from './context/ChatProvider';
 import ChatArea from "./components/ChatArea/ChatArea.js";
 import CreateChatroom from "./components/CreateChatroom";
+import JoinRoom from './components/JoinRoom';
 
 
 function App() {
@@ -22,12 +23,12 @@ function App() {
       {/* protected routes */}
       <Route element={<RequireAuth />}>
         <Route path="chat" element={<Home />}>
-        <Route path="" element={<h1>join a room</h1>} />
-        <Route path="new" element={<CreateChatroom />} />
-        <Route path=":name" element={<ChatArea />} />
-      </Route>
-       {/* catch all */}
-       <Route path="*" element={<Missing />} />
+          <Route path="" element={<JoinRoom />} />
+          <Route path="new" element={<CreateChatroom />} />
+          <Route path=":name" element={<ChatArea />} />
+        </Route>
+        {/* catch all */}
+        <Route path="*" element={<Missing />} />
      </Route>
    </Routes>
   </ChatProvider>

@@ -5,11 +5,11 @@ const ChatroomCard = ({ chatroom, setChatroom }) => {
 
   const navigate = useNavigate();
 
-  const handleSelection = () => {
-    setChatroom(chatroom)
+  const handleSelection = async () => {
+    await setChatroom(chatroom)
     navigate(`/chat/${chatroom.name}`);
   }
-  
+
   return (
     <div className='chatroom-card' onClick={handleSelection}>
       <h1>{chatroom.name}</h1>

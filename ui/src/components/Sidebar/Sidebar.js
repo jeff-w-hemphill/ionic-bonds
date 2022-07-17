@@ -19,7 +19,8 @@ const Sidebar = () => {
   return (
     <div className='sidebar'>
       <HeaderCard />
-      <button className="btn-hover color-3" onClick={handleCreate}>Create Room</button>
+      <button className="btn-hover color-3" onClick={handleCreate}>Create Nucleus</button>
+      <h2>Nuclei:</h2>
       <ChatroomCards />
     </div>
 

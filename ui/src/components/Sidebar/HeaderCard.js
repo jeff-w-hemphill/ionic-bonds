@@ -17,10 +17,10 @@ const HeaderCard = () => {
   return (
     <div className='header-card'>
       <div className="logo">
-        <img src={logo} />
+        <img src={logo} className="rotate-image" />
         <h1>Ionic Bonds</h1>
       </div>
-        <p>Chatting as: {auth.username}</p>
+        <p>Chatting as: <b style={{ color: 'black' }}>{auth.username}</b></p>
         <a onClick={logout}>logout</a>
     </div>
   )

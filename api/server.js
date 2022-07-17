@@ -11,6 +11,7 @@ const cookieParser = require('cookie-parser');
 const credentials = require('./middleware/credentials');
 const mongoose = require('mongoose');
 const connectDB = require('./config/dbConn');
+const Chatroom = require('./model/Chatroom');
 const PORT = process.env.PORT || 3500;
 
 const { Server } = require('socket.io');
@@ -28,10 +29,28 @@ io.on('connection', (socket) => {
     
     socket.on('join_room', (data) => {
         console.log(`<${data.username}> joined <${data.room}>`);
-        socket.join(data.room);
+        socket.join(data.room); 
     });
 
-    socket.on('send_message', (data) => {
+    socket.on('leave_room', (data) => {
+        console.log(`<${data.username}> left <${data.room}>`);
+        socket.leave(data.room);
+    })
+
+    socket.on('send_message', async (data) => {
+        // update chatroom messages in db
+        try {
+            await Chatroom.updateOne(
+                { "name": data.room }, 
+                { "$push": {"messages": data.messageObj} },
+                { "new": true, "upsert": true },  
+            );
+            console.log('Successfully added to db');
+        } catch (err) {
+            console.log(err);
+        }
+    
+
         socket.to(data.room).emit('receive_message', data);
         console.log(`${data.messageObj.user} sent message`)
     });
