@@ -5,7 +5,10 @@ Full-stack chat room application with real-time updates and data persistance.
 ### Tech stack:  
 Frontend: ReactJS  
 Backened: NodeJS, ExpressJS, socket.io  
-Database: MongoDB -> database models: https://github.com/jeff-w-hemphill/ionic-bonds/tree/main/api/model
+Database: MongoDB -> database models: https://github.com/jeff-w-hemphill/ionic-bonds/tree/main/api/model  
+
+Want to connect to mongo with a local client? -> http://localhost:27018  
+MongoDB GUI Client: https://www.mongodb.com/products/compass 
 
 ## Setup
 1. Ensure you have docker and docker-compose installed on your machine.  
