@@ -1,15 +1,14 @@
-import React from 'react';
 import ChatroomCard from './ChatroomCard';
 import { useContext } from 'react';
 import ChatContext from '../../context/ChatProvider';
 
 const ChatroomCards = () => {
 
-  const { chatrooms, setChatrooms, setChatroom } = useContext(ChatContext);
+  const { chatrooms } = useContext(ChatContext);
   chatrooms.sort( 
     (objA, objB) => 
       (new Date(objB.lastMessageTime).getTime() - new Date(objA.lastMessageTime).getTime())
-  )
+  );
 
   return (
     <div className='chatroom-cards'>
@@ -20,4 +19,4 @@ const ChatroomCards = () => {
   )
 }
 
-export default ChatroomCards
+export default ChatroomCards;

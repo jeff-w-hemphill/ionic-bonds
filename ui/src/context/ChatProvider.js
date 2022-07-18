@@ -1,7 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import axios from '../api/axios';
 
-
 const URL = 'http://localhost:3500/chatrooms';
 
 const ChatContext = createContext({});
@@ -35,7 +34,6 @@ export const ChatProvider = ({ children }) => {
     useEffect(() => {
         getAndSetChatrooms(URL);
     }, [creatingChatroom, chatroom]);
-
 
     return (
         <ChatContext.Provider value={{

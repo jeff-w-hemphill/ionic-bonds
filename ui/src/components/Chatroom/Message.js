@@ -1,5 +1,3 @@
-import React from 'react'
-
 const Message = ({ username, timestamp, content }) => {
   return (
     <div className='message-block'>

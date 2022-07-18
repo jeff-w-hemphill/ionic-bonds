@@ -1,7 +1,7 @@
 import AuthContext from "../../context/AuthProvider";
 import { useNavigate, Link } from "react-router-dom";
 import { useContext } from "react";
-import logo from '../../ionic_logo.png';
+import Logo from '../../components/Logo';
 
 const HeaderCard = () => {
   const { auth, setAuth } = useContext(AuthContext);
@@ -12,15 +12,12 @@ const HeaderCard = () => {
       navigate('/login');
   }
   return (
-    <div className='header-card'>
-      <div className="logo">
-        <img src={logo} className="rotate-image" />
-        <h1>Ionic-Bonds</h1>
-      </div>
-        <p>Chatting as: <b style={{ color: 'black' }}>{auth.username}</b></p>
-        <a onClick={logout}>logout</a>
+    <div className='header-card' onClick={() => navigate('/chat')}>
+      <Logo className='logo' />
+      <p>Chatting as: <b style={{ color: 'black' }}>{auth.username}</b></p>
+      <a onClick={logout}>logout</a>
     </div>
   )
 }
 
-export default HeaderCard
+export default HeaderCard;

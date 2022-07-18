@@ -1,4 +1,3 @@
-import React from 'react';
 import ChatroomCards from './ChatroomCards';
 import HeaderCard from './HeaderCard';
 import { useContext } from 'react';
@@ -15,7 +14,6 @@ const Sidebar = () => {
     navigate('/chat/new', { replace: true })
   }
 
-
   return (
     <div className='sidebar'>
       <HeaderCard />
@@ -23,7 +21,6 @@ const Sidebar = () => {
       <h2>Nuclei:</h2>
       <ChatroomCards />
     </div>
-
   )
 }
 

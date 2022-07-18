@@ -1,17 +1,16 @@
 import { useRef, useState, useEffect } from 'react';
 import useAuth from '../hooks/useAuth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-
 import axios from '../api/axios';
+import Logo from '../components/Logo';
 const LOGIN_URL = '/login';
 
 const Login = () => {
+    
     const { setAuth } = useAuth();
 
     const navigate = useNavigate();
-    const location = useLocation();
-    //const from = location.state?.from?.pathname || "/chat";
-
+   
     const userRef = useRef();
     const errRef = useRef();
 
@@ -28,7 +27,6 @@ const Login = () => {
   
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         try {
             const response = await axios.post(LOGIN_URL,
                 JSON.stringify({ username }),
@@ -57,7 +55,9 @@ const Login = () => {
     }
 
   return (
-        <section className='auth'>
+      <div className='auth'>
+          <Logo className='auth-logo'/>
+        <section>
             <p ref={errRef} className={errMsg ? 'errmsg' : "offscreen"} 
                 aria-live="assertive">{errMsg}</p>
                 <h1>Sign In</h1>
@@ -82,7 +82,8 @@ const Login = () => {
                     </span>
                 </p>
         </section>
+    </div>
   )
 }
 
-export default Login
+export default Login;

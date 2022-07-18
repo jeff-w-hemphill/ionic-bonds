@@ -3,24 +3,20 @@ version: "3"
 services:
   api:
     image: node:17.4
-    user: "node"                                # Use a non-root user node
-    working_dir: /home/node/app                 # with home directory /home/node/app
+    user: "node"                               
+    working_dir: /home/node/app                
     # environment:
-    #   - NODE_ENV=production                   # << Use this when deploying your application,
-    #                                           #   currently we have it off so that changes to
+    #   - NODE_ENV=production                   
+    #                                           
     #
     depends_on:
-      - mongodb                                           #   *.ejs are visible without restarting docker-compose.
+      - mongodb                                           
     ports:
-        - "3500:3500"                           # Here we do need to publish the port for viewing on the host.
+        - "3500:3500"                           
     volumes:
-      - ./api:/home/node/app                       # Binds the current directory (containing our source code) into the image,
-                                                #  so that changes made to the source code on the host
-                                                #  are reflected witin the container.
-    command: bash -c "npm install && npm run dev"                    # This will run nodemon so    
-                                                # that changes to server.js will 
-                                                # update in real time
-
+      - ./api:/home/node/app                                                                                                                   
+    command: bash -c "npm install && npm run dev"    
+                                                               
   mongodb:
     image: mongo:4.4.4
     # environment:

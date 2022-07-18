@@ -14,25 +14,26 @@ import JoinRoom from './components/JoinRoom';
 function App() {
 
   return (
-  <ChatProvider>
-    <Routes>
-      {/* public routes */}
-      <Route path="/" element={<Navigate replace to="login" />} />
-      <Route path="login" element={<Login />} />
-      <Route path="register" element={<Register />} />
-      {/* protected routes */}
-      <Route element={<RequireAuth />}>
-        <Route path="chat" element={<Home />}>
-          <Route path="" element={<JoinRoom />} />
-          <Route path="new" element={<CreateChatroom />} />
-          <Route path=":name" element={<Chatroom />} />
-        </Route>
-        {/* catch all */}
-        <Route path="*" element={<Missing />} />
-     </Route>
-   </Routes>
-  </ChatProvider>
-
+    <div className='App'>
+      <ChatProvider>
+        <Routes>
+          {/* public routes */}
+          <Route path="/" element={<Navigate replace to="login" />} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          {/* protected routes */}
+          <Route element={<RequireAuth />}>
+            <Route path="chat" element={<Home />}>
+              <Route path="" element={<JoinRoom />} />
+              <Route path="new" element={<CreateChatroom />} />
+              <Route path=":name" element={<Chatroom />} />
+            </Route>
+            {/* catch all */}
+          </Route>
+          <Route path="*" element={<Missing />} />
+        </Routes>
+      </ChatProvider>
+    </div>
   );
 }
 

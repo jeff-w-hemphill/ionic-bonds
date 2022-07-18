@@ -1,4 +1,3 @@
-import React from 'react';
 import { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from '../api/axios';
@@ -24,12 +23,11 @@ const CreateChatroom = () => {
     }, [])
 
     useEffect(() => {
-        setErrMsg('');
+        name.toLowerCase() === 'new' ? setErrMsg('Name cannot be "new"') : setErrMsg('');
     }, [name])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         const newRoom = {
             name: name,
             messages: [
@@ -48,7 +46,7 @@ const CreateChatroom = () => {
                     withCredentials: true
                 }
             );
-        
+
             await setChatroom(response.data)
             await setCreatingChatroom(false);
             navigate(`/chat/${name}`, { replace: true });
@@ -60,7 +58,7 @@ const CreateChatroom = () => {
             } else if (err.response?.status === 409) {
                 setErrMsg('Chatroom with that name already exists');
             } else {
-                setErrMsg('Login failed');
+                setErrMsg('Failed to create chatroom.');
             }
             
             errRef.current.focus();
@@ -73,17 +71,17 @@ const CreateChatroom = () => {
         aria-live="assertive">{errMsg}</p>
         <h1>Create Chatroom</h1>
         <form onSubmit={handleSubmit}>
-            <label htmlFor="username">Name:</label>
+            <label htmlFor="name">Name:</label>
             <input 
                 type="text" 
-                id="username"
+                id="name"
                 ref={userRef}
                 autoComplete="off"
                 onChange={(e) => setName(e.target.value)}
                 value={name} 
                 required
             />
-            <button disabled={name.length < 1 ? true : false}>Create</button>
+            <button disabled={name.length < 1 || errMsg ? true : false}>Create</button>
         </form>
     </section>
   )
