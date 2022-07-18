@@ -21,7 +21,10 @@ const createNewChatroom = async (req, res) => {
 const getAllChatrooms = async (req, res) => {
     const chatrooms = await Chatroom.find();
     if (!chatrooms) return res.status(204).json({ 'message': 'No chatrooms found.' });
-    res.json(chatrooms);
+    
+    // just return name and date of last message
+    const result = chatrooms.map(chatroom => ({ name: chatroom.name, lastMessageTime: chatroom.messages[chatroom.messages.length - 1].timestamp }))
+    res.json(result);
 }
 
 const getChatroom = async (req, res) => {

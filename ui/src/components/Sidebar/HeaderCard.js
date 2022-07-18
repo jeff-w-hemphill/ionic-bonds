@@ -1,4 +1,3 @@
-import React from 'react'
 import AuthContext from "../../context/AuthProvider";
 import { useNavigate, Link } from "react-router-dom";
 import { useContext } from "react";
@@ -9,8 +8,6 @@ const HeaderCard = () => {
   const navigate = useNavigate();
 
   const logout = async () => {
-      // if used in more components, this should be in context 
-      // axios to /logout endpoint 
       setAuth({});
       navigate('/login');
   }
@@ -18,7 +15,7 @@ const HeaderCard = () => {
     <div className='header-card'>
       <div className="logo">
         <img src={logo} className="rotate-image" />
-        <h1>Ionic Bonds</h1>
+        <h1>Ionic-Bonds</h1>
       </div>
         <p>Chatting as: <b style={{ color: 'black' }}>{auth.username}</b></p>
         <a onClick={logout}>logout</a>

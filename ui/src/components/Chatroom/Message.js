@@ -1,6 +1,6 @@
 import React from 'react'
 
-const MessageBlock = ({ user, timestamp, content }) => {
+const Message = ({ user, timestamp, content }) => {
   return (
     <div className='message-block'>
         <h5>{user}</h5>
@@ -10,4 +10,4 @@ const MessageBlock = ({ user, timestamp, content }) => {
   )
 }
 
-export default MessageBlock
+export default Message;

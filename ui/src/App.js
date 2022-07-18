@@ -6,7 +6,7 @@ import Missing from './pages/Missing';
 import RequireAuth from './components/RequireAuth';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { ChatProvider } from './context/ChatProvider';
-import ChatArea from "./components/ChatArea/ChatArea.js";
+import Chatroom from "./components/Chatroom/Chatroom.js";
 import CreateChatroom from "./components/CreateChatroom";
 import JoinRoom from './components/JoinRoom';
 
@@ -25,7 +25,7 @@ function App() {
         <Route path="chat" element={<Home />}>
           <Route path="" element={<JoinRoom />} />
           <Route path="new" element={<CreateChatroom />} />
-          <Route path=":name" element={<ChatArea />} />
+          <Route path=":name" element={<Chatroom />} />
         </Route>
         {/* catch all */}
         <Route path="*" element={<Missing />} />

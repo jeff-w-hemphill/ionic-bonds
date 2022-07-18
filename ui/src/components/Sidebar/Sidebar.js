@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
 
-  const { creatingChatroom, setCreatingChatroom } = useContext(ChatContext);
+  const { setCreatingChatroom } = useContext(ChatContext);
   const navigate = useNavigate();
 
   const handleCreate = () => {

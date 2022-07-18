@@ -23,49 +23,6 @@ const io = new Server(server, {
     }
 });
 
-// socket.io
-io.on('connection', (socket) => {
-    console.log('a user connected');
-    
-    socket.on('join_room', (data) => {
-        console.log(`<${data.username}> joined <${data.room}>`);
-        socket.join(data.room); 
-    });
-
-    socket.on('leave_room', (data) => {
-        console.log(`<${data.username}> left <${data.room}>`);
-        socket.leave(data.room);
-    })
-
-    socket.on('send_message', async (data) => {
-        // update chatroom messages in db
-        try {
-            await Chatroom.updateOne(
-                { "name": data.room }, 
-                { "$push": {"messages": data.messageObj} },
-                { "new": true, "upsert": true },  
-            );
-            console.log('Successfully added to db');
-        } catch (err) {
-            console.log(err);
-        }
-    
-
-        socket.to(data.room).emit('receive_message', data);
-        console.log(`${data.messageObj.user} sent message`)
-    });
-
-    socket.on('disconnect', () => {
-        console.log('user disconnected');
-    });
-});
-
-
-
-
-
-
-
 // Connect to MongoDB
 connectDB();
 
@@ -79,8 +36,7 @@ app.use(credentials);
 // Cross Origin Resource Sharing
 app.use(cors(corsOptions))
 
-// built-in middleware to handle urlencoded data
-// in other words, form data:  
+// built-in middleware to handle urlencoded data / form data
 // ‘content-type: application/x-www-form-urlencoded’
 app.use(express.urlencoded({ extended: false }));
 
@@ -119,4 +75,39 @@ mongoose.connection.once('open', () => {
     server.listen(PORT, () => console.log(`Server running at port: ${PORT}`));
 })
 
+// socket.io websockets
+io.on('connection', (socket) => {
+    console.log('a user connected');
+    
+    socket.on('join_room', (data) => {
+        console.log(`<${data.username}> joined <${data.room}>`);
+        socket.join(data.room); 
+    });
+
+    socket.on('leave_room', (data) => {
+        console.log(`<${data.username}> left <${data.room}>`);
+        socket.leave(data.room);
+    })
+
+    socket.on('send_message', async (data) => {
+        // update chatroom messages in db
+        try {
+            await Chatroom.updateOne(
+                { "name": data.room }, 
+                { "$push": { "messages": { "$each": [data.messageObj], "$slice": -50 } }}, // limits the size of the messages array to 50 by creating trailing window
+                { "new": true, "upsert": true },  
+            );
+            console.log('Successfully added to db');
+        } catch (err) {
+            console.log(err);
+        }
+
+        socket.to(data.room).emit('receive_message', data);
+        console.log(`${data.messageObj.user} sent message`)
+    });
+
+    socket.on('disconnect', () => {
+        console.log('user disconnected');
+    });
+});
 

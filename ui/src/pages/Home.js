@@ -2,7 +2,6 @@ import { useNavigate, Routes, Route, Outlet } from "react-router-dom";
 import { useContext } from "react";
 import AuthContext from "../context/AuthProvider";
 import Sidebar from "../components/Sidebar/Sidebar.js";
-import ChatArea from "../components/ChatArea/ChatArea.js";
 
 const Home = () => {
     const { auth, setAuth } = useContext(AuthContext);
@@ -23,4 +22,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default Home;

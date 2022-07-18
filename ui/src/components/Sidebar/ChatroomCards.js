@@ -8,14 +8,13 @@ const ChatroomCards = () => {
   const { chatrooms, setChatrooms, setChatroom } = useContext(ChatContext);
   chatrooms.sort( 
     (objA, objB) => 
-      (new Date(objB.messages[objB.messages.length - 1].timestamp).getTime()
-       - new Date(objA.messages[objA.messages.length - 1].timestamp).getTime())
+      (new Date(objB.lastMessageTime).getTime() - new Date(objA.lastMessageTime).getTime())
   )
 
   return (
     <div className='chatroom-cards'>
       {chatrooms.map(chatroom => (
-        <ChatroomCard key={chatroom.name} chatroom={chatroom} setChatroom={setChatroom} /> 
+        <ChatroomCard key={chatroom.name} name={chatroom.name} lastMessageTime={chatroom.lastMessageTime} /> 
       ))}
     </div>
   )

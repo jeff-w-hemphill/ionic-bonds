@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import MessagesArea from './MessagesArea';
+import Messages from './Messages';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import ChatContext from '../../context/ChatProvider';
 import AuthContext from '../../context/AuthProvider';
@@ -9,10 +9,13 @@ import { io } from 'socket.io-client';
 
 const socket = io('http://localhost:3500');
 
-const ChatArea = () => {
+const Chatroom = () => {
   
   const { chatroom } = useContext(ChatContext);
   const { auth } = useContext(AuthContext);
+
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState('');
   
   // turn socket off after each render to avoid redundant messages received
   useEffect(() => {
@@ -25,22 +28,20 @@ const ChatArea = () => {
     socket.emit('join_room', { username: auth.username, room: chatroom.name });
     return () => socket.emit('leave_room', { username: auth.username, room: chatroom.name });
 
-  }, [chatroom])
-  // // //
+  }, [chatroom]);
 
-  const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState('');
+
 
   const handleSend = () => {
     const messageObj = { user: auth.username, content: newMessage, timestamp: Date() }
     socket.emit('send_message', { messageObj, room: chatroom.name });
-    setMessages(messages => messages.concat(messageObj));
+    setMessages(messages => messages.concat(messageObj).slice(-50)); // just show the last 50 messages
     setNewMessage('');
   }
 
   useEffect(() => {
     socket.on('receive_message', (data) => {
-      setMessages(messages => messages.concat(data.messageObj));
+      setMessages(messages => messages.concat(data.messageObj).slice(-50)); // just show the last 50 messages
       console.log('received message')
       return () => socket.off('receive_message', console.log('off'))
     })
@@ -49,7 +50,7 @@ const ChatArea = () => {
   return (
     <div className='chat-area'>
       <ScrollToBottom className="messages-area">
-        <MessagesArea messages={messages} />
+        <Messages messages={messages} />
       </ScrollToBottom>
       
       <div className='send-message'>
@@ -60,4 +61,4 @@ const ChatArea = () => {
   )
 }
 
-export default ChatArea
+export default Chatroom;
