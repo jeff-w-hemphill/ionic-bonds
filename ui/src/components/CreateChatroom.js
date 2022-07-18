@@ -32,7 +32,7 @@ const CreateChatroom = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const newRoom = {
-            name: name,
+            name: name.trim(),
             messages: [
                 {
                     user: auth.username,
