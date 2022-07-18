@@ -16,7 +16,7 @@ services:
     volumes:
       - ./api:/home/node/app                                                                                                                   
     command: bash -c "npm install && npm run dev"    
-                                                               
+
   mongodb:
     image: mongo:4.4.4
     # environment:
@@ -31,6 +31,8 @@ services:
     build: ./ui
     image: ui
     command: npm start
+    depends_on:
+      - api
     ports:
       - "3000:3000"
     volumes:
