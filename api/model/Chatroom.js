@@ -9,7 +9,10 @@ const chatroomSchema = new Schema({
     messages: [{
         username: String,
         content: String,
-        timestamp: Date
+        timestamp: {
+            type :Date,
+            required: true
+        }
     }]
 });
 

@@ -33,7 +33,7 @@ const Chatroom = () => {
 
 
   const handleSend = () => {
-    const messageObj = { user: auth.username, content: newMessage, timestamp: Date() }
+    const messageObj = { username: auth.username, content: newMessage, timestamp: Date() }
     socket.emit('send_message', { messageObj, room: chatroom.name });
     setMessages(messages => messages.concat(messageObj).slice(-50)); // just show the last 50 messages
     setNewMessage('');

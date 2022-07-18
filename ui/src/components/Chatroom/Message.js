@@ -1,11 +1,13 @@
 import React from 'react'
 
-const Message = ({ user, timestamp, content }) => {
+const Message = ({ username, timestamp, content }) => {
   return (
     <div className='message-block'>
-        <h5>{user}</h5>
-        <p>{content}</p>
-        <p>{timestamp}</p>
+      <div className='message-block-meta'>
+        <h2>{username}</h2>
+        <date>{new Date(timestamp).toLocaleString()}</date>
+      </div>
+      <p>{content}</p> 
     </div>
   )
 }

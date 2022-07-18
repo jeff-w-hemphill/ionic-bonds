@@ -7,7 +7,7 @@ const Messages = ({ messages }) => {
     return (
         <div className='messages-area'>
         {messages.map(message => (
-            <Message user={message.user} timestamp={message.timestamp} content={message.content} />
+            <Message username={message.username} timestamp={message.timestamp} content={message.content} />
             ))}
         </div>
     )

@@ -16,7 +16,7 @@ const ChatroomCard = ({ name, lastMessageTime }) => {
   return (
     <div className='chatroom-card' onClick={handleSelection}>
       <h1>{name}</h1>
-      <p>Last message: {lastMessageTime}</p>
+      <p>Last message: {new Date(lastMessageTime).toLocaleString()}</p>
     </div>
   )
 }

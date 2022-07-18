@@ -12,6 +12,7 @@ const credentials = require('./middleware/credentials');
 const mongoose = require('mongoose');
 const connectDB = require('./config/dbConn');
 const Chatroom = require('./model/Chatroom');
+const Message = require('./model/Message');
 const PORT = process.env.PORT || 3500;
 
 const { Server } = require('socket.io');
@@ -97,13 +98,14 @@ io.on('connection', (socket) => {
                 { "$push": { "messages": { "$each": [data.messageObj], "$slice": -50 } }}, // limits the size of the messages array to 50 by creating trailing window
                 { "new": true, "upsert": true },  
             );
-            console.log('Successfully added to db');
+            await Message.create({...data.messageObj, room: data.room });
+            console.log('Successfully added message to db');
         } catch (err) {
             console.log(err);
         }
 
         socket.to(data.room).emit('receive_message', data);
-        console.log(`${data.messageObj.user} sent message`)
+        console.log(`${data.messageObj.username} sent message`)
     });
 
     socket.on('disconnect', () => {
