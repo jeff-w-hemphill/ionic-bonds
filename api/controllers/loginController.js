@@ -9,7 +9,7 @@ const handleLogin = async (req, res) => {
     // evaluate pwd
     const match = true
     if (match) {
-        res.status(200).json({ 'name': foundUser.name })
+        res.status(200).json({ 'message': `${foundUser.username} is logged in.` });
     } else {
         res.sendStatus(401);
     }
