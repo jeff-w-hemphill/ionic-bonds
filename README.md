@@ -86,7 +86,7 @@ docker-compose up --build
 ```
 #### Example response:   
 ```
-{ "message": "jeff7 is logged in." }
+{ "message": "jeff42 is logged in." }
 ```
 \
 \
