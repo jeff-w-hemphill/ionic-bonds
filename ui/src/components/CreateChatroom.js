@@ -5,8 +5,8 @@ import { useContext } from 'react';
 import AuthContext from '../context/AuthProvider';
 import ChatContext from '../context/ChatProvider';
 
-const CHATROOM_URL = '/chatrooms'
-
+const CHATROOM_URL = '/chatrooms';
+const CHATROOM_NAME_REGEX = /^[a-zA-Z][a-zA-Z0-9-_ ]{2,23}$/; 
 const CreateChatroom = () => {
 
     const userRef = useRef();
@@ -16,14 +16,17 @@ const CreateChatroom = () => {
     const navigate = useNavigate();
 
     const [name, setName] = useState('');
-    const [errMsg, setErrMsg] = useState('')
+    const [errMsg, setErrMsg] = useState('');
+    const [validName, setValidName] = useState(false);
 
     useEffect(() => {
         userRef.current.focus();
     }, [])
 
     useEffect(() => {
+        const result = CHATROOM_NAME_REGEX.test(name);
         name.toLowerCase() === 'new' ? setErrMsg('Name cannot be "new"') : setErrMsg('');
+        setValidName(result);
     }, [name])
 
     const handleSubmit = async (e) => {
@@ -81,7 +84,14 @@ const CreateChatroom = () => {
                 value={name} 
                 required
             />
-            <button disabled={name.length < 1 || errMsg ? true : false}>Create</button>
+            <p id="pwdnote" className={ !validName ? 
+                "instructions" : "offscreen"}>
+                3 to 24 characters. <br />
+                Must only include uppercase and lowercase letters, a number, and a special character. <br />
+                Allowed special characters: <span aria-label="hashtag">#</span>
+              <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
+            </p> 
+            <button disabled={!validName || name.length < 1 || errMsg ? true : false}>Create</button>
         </form>
     </section>
   )

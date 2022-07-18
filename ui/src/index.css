@@ -261,7 +261,6 @@ button:disabled {
 }
 .chatroom-card {
     margin: 15px 5px;
-    /* border: 2px solid #000000; */
     background-color: rgb(39, 18, 134);
     color:rgb(255, 255, 255);
     box-shadow: 0 4px 8px 0 rgba(116, 79, 168, 0.75);
@@ -272,6 +271,15 @@ button:disabled {
     /* border: 2px solid #5c5c5c; */
     opacity: 90%;
     margin-right: 2px;
+}
+.chatroom-card-selected {
+    margin: 15px 5px;
+    background-color: rgb(39, 18, 134);
+    color:rgb(255, 255, 255);
+    box-shadow: 0 4px 8px 0 rgba(116, 79, 168, 0.75);
+    border-radius: 6px;
+    padding: 10px;
+    opacity: 70%;
 }
 
 .chat-area {
