@@ -62,11 +62,12 @@ docker-compose up --build
 
 ```'recieve_message'``` -> user receives message from socket.  
 
-### Details 
 
+### Details 
+---
 ```GET /```
 #### returns blank html. 
-
+---
 ```POST /register```
 #### Example request body:  
 ```
@@ -76,9 +77,7 @@ docker-compose up --build
 ```
 { "success": "New user jeff42 created! }
 ```
-\
-\
-
+---
 ```POST /login```
 #### Example request body:  
 ```
@@ -88,9 +87,7 @@ docker-compose up --build
 ```
 { "message": "jeff42 is logged in." }
 ```
-\
-\
-
+---
 ```GET /chatrooms```
 #### Example response:
 ```
@@ -105,8 +102,7 @@ docker-compose up --build
   },
 ]
 ```
-\
-\
+---
 ```POST /chatrooms```
 #### Example request body:  
 ```
@@ -134,8 +130,7 @@ docker-compose up --build
   "__v": 0
 }
 ```
-\
-\
+---
 ```GET /chatrooms/:name```
 #### Example response:  
 ```
@@ -158,3 +153,4 @@ docker-compose up --build
   "__v": 0
 }
 ```
+---
