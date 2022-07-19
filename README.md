@@ -37,6 +37,8 @@ docker-compose up --build
 
 3. For subsequent startups, use ```docker-compose up```.
 
+4. Once resources are loaded, app will be running on ```http://localhost:3000``` with the api running on ```http://localhost:3500```.
+
 ## API Documentation
 
 ### Overview
