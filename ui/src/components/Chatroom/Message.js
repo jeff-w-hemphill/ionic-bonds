@@ -3,7 +3,7 @@ const Message = ({ username, timestamp, content }) => {
     <div className='message-block'>
       <div className='message-block-meta'>
         <h2>{username}</h2>
-        <date>{new Date(timestamp).toLocaleString()}</date>
+        <span>{new Date(timestamp).toLocaleString()}</span>
       </div>
       <p>{content}</p> 
     </div>
