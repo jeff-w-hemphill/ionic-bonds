@@ -29,8 +29,6 @@ const Register = () => {
 
     useEffect(() => {
         const result = USERNAME_REGEX.test(username);
-        console.log(result);
-        console.log(username);
         setValidUsername(result)
     },[username])
 
